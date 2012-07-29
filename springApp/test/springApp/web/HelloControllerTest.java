@@ -48,5 +48,11 @@ public class HelloControllerTest {
         HelloController controller = new HelloController();
         ModelAndView modelAndView = controller.handleRequest(null, null);         
         assertEquals("hello", modelAndView.getViewName());
+        assertNotNull(modelAndView.getModel());
+        
+        String nowValue = (String)modelAndView.getModel().get("now");
+        assertNotNull(nowValue);
+        
+        
     }
 }
