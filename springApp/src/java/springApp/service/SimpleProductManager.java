@@ -1,6 +1,8 @@
 package springApp.service;
 
 import java.util.List;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import springApp.domain.Product;
 
 /**
@@ -10,6 +12,7 @@ import springApp.domain.Product;
  */
 public class SimpleProductManager implements ProductManager {
 
+    protected final Log logger = LogFactory.getLog(getClass());
     private List<Product> _products;
     
     @Override
@@ -30,6 +33,7 @@ public class SimpleProductManager implements ProductManager {
     
     public void setProducts(List<Product> products)
     {
+        logger.info("adding passed product list to SimpleProductManager: " + products.toString());
         _products = products;
     }
 

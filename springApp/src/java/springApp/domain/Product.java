@@ -1,8 +1,6 @@
 package springApp.domain;
 
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Simple POJO to describe a product

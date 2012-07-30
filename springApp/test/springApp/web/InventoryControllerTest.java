@@ -4,6 +4,7 @@
  */
 package springApp.web;
 
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.After;
@@ -13,14 +14,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
+import springApp.service.SimpleProductManager;
 
 /**
  *
  * @author haller
  */
-public class HelloControllerTest {
+public class InventoryControllerTest {
     
-    public HelloControllerTest() {
+    public InventoryControllerTest() {
     }
     
     @BeforeClass
@@ -40,16 +42,18 @@ public class HelloControllerTest {
     }
 
     /**
-     * Test of handleRequest method, of class HelloController.
+     * Test of handleRequest method, of class InventoryController.
      */
     @Test
     public void testHandleRequest() throws Exception {
         System.out.println("handleRequest");
-        HelloController controller = new HelloController();
+        InventoryController controller = new InventoryController();
+        controller.setProductManager(new SimpleProductManager());
         ModelAndView modelAndView = controller.handleRequest(null, null);         
         assertEquals("hello", modelAndView.getViewName());
         assertNotNull(modelAndView.getModel());
         
+        Map modelMap = (Map)modelAndView.getModel().get("model");
         String nowValue = (String)modelAndView.getModel().get("now");
         assertNotNull(nowValue);
         
