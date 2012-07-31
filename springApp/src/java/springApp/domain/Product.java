@@ -11,6 +11,7 @@ public class Product implements Serializable {
     
     private String _description;
     private Double _price;
+    private int _id;
 
     /**
      * @return the _description
@@ -38,6 +39,14 @@ public class Product implements Serializable {
      */
     public void setPrice(Double price) {
         _price = price;
+    }
+    
+    public void setId(int i) {
+        _id = i;
+    }
+    
+    public int getId() {
+        return _id;
     }
     
     @Override

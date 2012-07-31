@@ -54,7 +54,7 @@ public class InventoryControllerTest {
         assertNotNull(modelAndView.getModel());
         
         Map modelMap = (Map)modelAndView.getModel().get("model");
-        String nowValue = (String)modelAndView.getModel().get("now");
+        String nowValue = (String)modelMap.get("now");
         assertNotNull(nowValue);
         
         

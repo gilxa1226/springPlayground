@@ -1,0 +1,1 @@
+java -classpath ..\..\..\..\build\web\WEB-INF\lib\hsqldb.jar org.hsqldb.server.Server -database test
