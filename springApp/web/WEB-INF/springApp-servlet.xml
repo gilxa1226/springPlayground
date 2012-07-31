@@ -20,6 +20,7 @@
             <props>
                 <prop key="index.htm">indexController</prop>
                 <prop key="hello.htm">inventoryController</prop>
+                <prop key="priceincrease.htm">priceIncreaseController</prop>
             </props>
         </property>
     </bean>
@@ -70,5 +71,16 @@
         <property name="basename" value="messages"/>
     </bean> 
     
+    <bean name="priceIncreaseController" class="springApp.web.PriceIncreaseFormController">
+        <property name="sessionForm" value="true"/>
+        <property name="commandName" value="priceIncrease"/>
+        <property name="commandClass" value="springApp.service.PriceIncrease"/>
+        <property name="validator">
+            <bean class="springApp.service.PriceIncreaseValidator" />
+        </property>
+        <property name="formView" value="priceincrease" />
+        <property name="successView" value="hello.htm" />
+        <property name="productManager" ref="productManager" />
+    </bean>
     
 </beans>
