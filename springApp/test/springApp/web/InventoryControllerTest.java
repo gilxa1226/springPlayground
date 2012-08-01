@@ -4,6 +4,7 @@
  */
 package springApp.web;
 
+import java.util.ArrayList;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 import springApp.service.SimpleProductManager;
+import springApp.domain.Product;
+import springApp.repository.InMemoryProductDao;
 
 /**
  *
@@ -47,8 +50,11 @@ public class InventoryControllerTest {
     @Test
     public void testHandleRequest() throws Exception {
         System.out.println("handleRequest");
+        
         InventoryController controller = new InventoryController();
-        controller.setProductManager(new SimpleProductManager());
+        SimpleProductManager spm = new SimpleProductManager();
+        spm.setProductDao(new InMemoryProductDao(new ArrayList<Product>()));
+        controller.setProductManager(spm);
         ModelAndView modelAndView = controller.handleRequest(null, null);         
         assertEquals("hello", modelAndView.getViewName());
         assertNotNull(modelAndView.getModel());

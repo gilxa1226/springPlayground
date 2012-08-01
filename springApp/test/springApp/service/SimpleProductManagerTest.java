@@ -13,6 +13,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import springApp.domain.Product;
+import springApp.repository.InMemoryProductDao;
+import springApp.repository.ProductDao;
 
 /**
  *
@@ -56,7 +58,8 @@ public class SimpleProductManagerTest {
         product.setPrice(TABLE_PRICE);
         products.add(product);
         
-        productManager.setProducts(products);
+        ProductDao productDao = new InMemoryProductDao(products);
+        productManager.setProductDao(productDao);
     }
     
     @After
@@ -68,6 +71,7 @@ public class SimpleProductManagerTest {
         System.out.println("getProductsWithNoProducts");
         
         productManager = new SimpleProductManager();
+        productManager.setProductDao(new InMemoryProductDao(new ArrayList<Product>()));
         assertNull(productManager.getProducts());
     }
     
@@ -80,6 +84,7 @@ public class SimpleProductManagerTest {
         
         try {
             productManager = new SimpleProductManager();
+            productManager.setProductDao(new InMemoryProductDao(null));
             productManager.increasePrice(POSITIVE_PRICE_INC);
         } catch (NullPointerException ex) {
             fail("Products list is null.");
@@ -96,7 +101,7 @@ public class SimpleProductManagerTest {
 
         try {
             productManager = new SimpleProductManager();
-            productManager.setProducts(new ArrayList<Product>());
+            productManager.setProductDao(new InMemoryProductDao(new ArrayList<Product>()));
             productManager.increasePrice(POSITIVE_PRICE_INC);
         } catch (Exception ex) {
             fail ("Products list is empty");

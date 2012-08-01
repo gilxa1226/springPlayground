@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import springApp.domain.Product;
+import springApp.repository.ProductDao;
 
 /**
  *
@@ -13,28 +14,36 @@ import springApp.domain.Product;
 public class SimpleProductManager implements ProductManager {
 
     protected final Log logger = LogFactory.getLog(getClass());
-    private List<Product> _products;
+    //private List<Product> _products;
+    private ProductDao _productDao;
     
     @Override
     public void increasePrice(int percentage) {
-        if ( _products != null ) {
-            for (Product product : _products) {
+        List<Product> products = _productDao.getProductList();
+        
+        if ( products != null ) {
+            for (Product product : products) {
                 double newPrice = product.getPrice().doubleValue() *
                         (100 + percentage) / 100;
                 product.setPrice(newPrice);
+                _productDao.saveProduct(product);
             }
         }
     }
 
     @Override
     public List<Product> getProducts() {
-        return _products;
+        return _productDao.getProductList();
     }
     
-    public void setProducts(List<Product> products)
+    public void setProductDao(ProductDao productDao) {
+        _productDao = productDao;
+    }
+    
+    /**public void setProducts(List<Product> products)
     {
         logger.info("adding passed product list to SimpleProductManager: " + products.toString());
         _products = products;
-    }
+    }**/
 
 }
